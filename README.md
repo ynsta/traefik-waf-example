@@ -19,6 +19,19 @@ To create a new service and expose it with Traefik, it must be in the traefik ne
       - "traefik.http.routers.FIXME.tls.certresolver=le"
 ```
 
+
+#### Let's encrypt configuration
+
+FIXME
+
+#### HTPASSWORD generation for traefik admin page
+
+FIXME
+
+#### Log Rotation
+
+FIXME
+
 ### Robots
 
 This WAF also exposes a `robots.txt` file on all running routers at the top level, accessible at `HOSTNAME/robots.txt`.
@@ -56,9 +69,7 @@ To test Discord notifications, run:
 docker exec crowdsec cscli notifications test discord
 ``` 
 
-
 #### Show decissions
-
 
 ```sh
 docker compose exec crowdsec cscli decision list
@@ -78,3 +89,11 @@ docker compose exec crowdsec cscli decision list
 │ 123794 │ crowdsec │ Ip:....     │ crowdsecurity/thinkphp-cve-2018-20062 │ ban    │ SG      │ 45102 Alibaba US Technology Co., Ltd.                 │ 1      │ 26h23m17s  │ 25       │
 ╰────────┴──────────┴─────────────┴───────────────────────────────────────┴────────┴─────────┴───────────────────────────────────────────────────────┴────────┴────────────┴──────────╯
 ```
+
+#### Ban time setup
+
+Edit `duration_expr` in `crowdsec-profile.yaml`
+
+#### Discord Notification format
+
+Edit `crowdsec-discord.yaml`  For the formating, [this doc](https://discordjs.guide/popular-topics/embeds.html#using-an-embed-object) is a good reference.
