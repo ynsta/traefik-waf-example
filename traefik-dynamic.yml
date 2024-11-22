@@ -1,4 +1,3 @@
-# https://plugins.traefik.io/plugins/628c9ebcffc0cd18356a979f/fail2-ban
 http:
   middlewares:
     crowdsec-bouncer:
