@@ -1,0 +1,23 @@
+name: default_ip_remediation
+#debug: true
+filters:
+- Alert.Remediation == true && Alert.GetScope() == "Ip"
+decisions:
+- type: ban
+  duration: 4h
+duration_expr: Sprintf('%dh', (GetDecisionsCount(Alert.GetValue()) + 1) * 8)
+notifications:
+- discord
+on_success: break
+---
+name: default_range_remediation
+#debug: true
+filters:
+- Alert.Remediation == true && Alert.GetScope() == "Range"
+decisions:
+- type: ban
+  duration: 4h
+duration_expr: Sprintf('%dh', (GetDecisionsCount(Alert.GetValue()) + 1) * 8)
+notifications:
+- discord
+on_success: break
