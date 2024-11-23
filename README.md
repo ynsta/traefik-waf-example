@@ -1,10 +1,12 @@
 # Traefik Reverse Proxy with Crowdsec WAF
 
+This project provides a deployment and configuration guide for a reverse proxy setup designed to serve all web applications on a server. The reverse proxy handles critical tasks such as certificate creation and renewal, ensures secure communication by redirecting all HTTP traffic to HTTPS, and serves a robots.txt file at /robots.txt for all routes and applications. Additionally, it integrates CrowdSec as a Web Application Firewall (WAF) to enhance security by analyzing traffic and blocking malicious requests, offering a robust and scalable solution for managing web services.
+
 ## Components
 
 ### Traefik
 
-This reverse proxy is used to serve all the web apps on the server and is also responsible for certificate creation and renewal. It also redirects all HTTP traffic to HTTPS.
+Traefik reverse proxy is used to serve all the web apps on the server and is also responsible for certificate creation and renewal. It also redirects all HTTP traffic to HTTPS.
 
 #### How to Expose a Service
 
