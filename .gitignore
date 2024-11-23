@@ -7,19 +7,6 @@ acme.json
 # Ignore log files
 *.log
 
-# Ignore Docker-related files
-docker-compose.override.yml
-.dockerignore
-
-# Ignore node_modules and other dependency directories
-node_modules/
-bower_components/
-
-# Ignore build directories
-dist/
-build/
-.tmp/
-
 # Ignore system files
 .DS_Store
 Thumbs.db
