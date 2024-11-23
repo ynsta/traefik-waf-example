@@ -20,17 +20,21 @@ To create a new service and expose it with Traefik, it must be in the traefik ne
 ```
 
 
-#### Let's encrypt configuration
+#### Auto Certificates with Let's Encrypt
 
-FIXME
+For Let's Encrypt, I use the Gandi DNS challenge with the key stored in the `.env` file, but you can use a different method by modifying the configuration in the `docker-compose.yml`. You can find more details in the [reference documentation](https://doc.traefik.io/traefik/https/acme/).
 
 #### HTPASSWORD generation for traefik admin page
 
-FIXME
+To generate the content for the `HTPASSWORD` variable to place in the `.env` file and protect the admin page, use:
+
+```sh
+echo "fixme_my_user:$(openssl passwd -apr1 'fixme_my_password')"
+```
 
 #### Log Rotation
 
-FIXME
+Not yet done, but be aware that Traefik access logs are mounted in `./log/traefik/access.log` to allow CrowdSec to access them. Therefore, it might be necessary to implement a mechanism to rotate and manage them.
 
 ### Robots
 
@@ -46,28 +50,39 @@ The setup is inspired by the [CrowdSec documentation](https://docs.crowdsec.net/
 
 #### Setup
 
-1. Start the CrowdSec service.
-2. Create an account on [CrowdSec](https://app.crowdsec.net/).
-3. Enroll the engine by following [this documentation](https://docs.crowdsec.net/u/getting_started/post_installation/console/#your-first-enrollment) and running:  
+1. Copy `.env.example` to `.env` and set all values except `CS_BOUNCER_KEY_TRAEFIK` and `CS_DISCORD_WEBHOOK`, which will be generated later. Refer to the previous sections for instructions on setting up the `HTPASSWORD` and Let's Encrypt ACME challenge.
+2. Create a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) and set it in `CS_DISCORD_WEBHOOK` in the `.env` file.
+3. Start the services
+   ```sh
+   docker compose up -d
+   ```
+4. Create an account on [CrowdSec](https://app.crowdsec.net/).
+5. Enroll the engine by following [this documentation](https://docs.crowdsec.net/u/getting_started/post_installation/console/#your-first-enrollment) and running:
    ```sh
    docker exec crowdsec cscli console enroll XXXXX
    ```
-4. Restart the crowdsec service.
-5. Create a bouncer key with:  
+6. Restart the CrowdSec service.
+   ```sh
+   docker compose restart crowdsec
+   ```
+7. Create a bouncer key with:
    ```sh
    docker exec crowdsec cscli bouncers add traefik-bouncer
    ```
    Then set the key in the `CS_BOUNCER_KEY_TRAEFIK` variable in the `.env` file.
-6. Create a discord webhook and set it in `CS_DISCORD_WEBHOOK` in the `.env` file.
-7. Restart all service.
+8. Restart all services.
+   ```sh
+   docker compose down
+   docker compose up -d
+   ```
 
 #### Test Notifications
 
-To test Discord notifications, run:  
+To test Discord notifications, run:
 
 ```sh
 docker exec crowdsec cscli notifications test discord
-``` 
+```
 
 #### Show decissions
 
