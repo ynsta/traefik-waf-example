@@ -97,3 +97,7 @@ Edit `duration_expr` in `crowdsec-profile.yaml`
 #### Discord Notification format
 
 Edit `crowdsec-discord.yaml`  For the formating, [this doc](https://discordjs.guide/popular-topics/embeds.html#using-an-embed-object) is a good reference.
+
+Here an example of the result:
+
+![discord notification example](doc/notification.webp)
