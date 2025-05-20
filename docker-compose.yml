@@ -1,12 +1,16 @@
 services:
   traefik:
     container_name: traefik
-    image: "traefik:v3.2"
+    image: "traefik:v3.3"
     restart: unless-stopped
     command:
       - --log.level=INFO
       - --entrypoints.websecure.address=:443
+      - --entryPoints.websecure.forwardedHeaders.trustedIPs=127.0.0.1/32${CLOUDFLARE_IPS}
+      - --entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32${CLOUDFLARE_IPS}
       - --entrypoints.web.address=:80
+      - --entryPoints.web.forwardedHeaders.trustedIPs=127.0.0.1/32${CLOUDFLARE_IPS}
+      - --entryPoints.web.proxyProtocol.trustedIPs=127.0.0.1/32${CLOUDFLARE_IPS}
       - --entryPoints.web.http.redirections.entryPoint.to=websecure
       - --entryPoints.web.http.redirections.entryPoint.scheme=https
       - --entryPoints.web.http.redirections.entrypoint.permanent=true

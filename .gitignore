@@ -1,5 +1,6 @@
 # Ignore .env file
 .env
+.env.old
 
 # Ignore acme.json for Traefik certificates
 acme.json

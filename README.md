@@ -78,6 +78,12 @@ The setup is inspired by the [CrowdSec documentation](https://docs.crowdsec.net/
    docker compose up -d
    ```
 
+#### CloudFlare proxy
+
+Run `./update-cf-ips.sh` to Update the list of trusted cloudflare IPs for x-forwarded- headers in access logs.
+
+IPs list and API documentation is [here](https://www.cloudflare.com/en-gb/ips/).
+
 #### Test Notifications
 
 To test Discord notifications, run:
