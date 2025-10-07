@@ -1,7 +1,7 @@
 services:
   traefik:
     container_name: traefik
-    image: "traefik:v3.3"
+    image: "traefik:v3.5"
     restart: unless-stopped
     command:
       - --log.level=INFO
@@ -35,7 +35,7 @@ services:
       - --certificatesresolvers.le.acme.dnschallenge.provider=gandiv5
       - --certificatesresolvers.le.acme.dnschallenge.delaybeforecheck=0
       - --experimental.plugins.crowdsec-bouncer-traefik-plugin.modulename=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
-      - --experimental.plugins.crowdsec-bouncer-traefik-plugin.version=v1.3.5
+      - --experimental.plugins.crowdsec-bouncer-traefik-plugin.version=v1.4.5
       - --entryPoints.websecure.http.middlewares=crowdsec-bouncer@file
     environment:
       GANDIV5_API_KEY: ${GANDIV5_API_KEY}
